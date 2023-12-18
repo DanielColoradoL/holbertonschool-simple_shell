@@ -1,0 +1,72 @@
+hsh(1)				Manual					hsh(1)
+
+NAME
+		hsh - a simple shell implementation in C
+
+SYNOPSIS
+		hsh
+
+DESCRIPTION
+		`hsh` is a shell program that provides an interface to execute commands.
+		It can be used both interactively and non-interactively.
+		When used interactively, the shell reads commands from the standard input
+		and executes them. When used non-interactively, commands are read from a
+		file or a pipeline.
+
+		The shell implements a subset of the features provided by the standard
+		POSIX shell, including:
+
+		- Running commands with arguments and environment variables
+		- Redirecting input and output using file descriptors
+		- Pipelining commands using the '|' operator
+		- Running background processes using the '&' operator
+
+		The shell does not support features such as command substitution, shell
+		variables, or shell functions.
+
+OPTIONS
+		The shell command does not take any command line options.
+
+EXIT STATUS
+		The `hsh` command returns the following exit statuses:
+
+		0 - Success
+		1 - General error
+
+EXAMPLES
+		Here are some examples of using the `hsh` shell:
+
+		- Interactive mode:
+
+			$ hsh
+			$ ls
+			file1 file2 file3
+			$ echo "Hello, world!"
+			Hello, world!
+			$ exit
+
+		- Non-interactive mode:
+
+			$ echo "/bin/ls" | hsh
+			hsh main.c shell.c test_ls_2
+			$
+			$ cat test_ls_2
+			/bin/ls
+			/bin/ls
+			$
+			$ cat test_ls_2 | hsh
+			hsh main.c shell.c test_ls_2
+			hsh main.c shell.c test_ls_2
+			$
+
+AUTHORS
+                To contact the authors of this page and to review the hsh shell
+                code or submit pull requests, please visit:
+                        https://github.com/haoningng
+                        https://github.com/DanielColoradoL
+
+COPYRIGHT
+                This hsh shell was created for educational purposes under the
+                framework and guidance of Holberton School, Melbourne Australia.
+
+2023-12-18									hsh(1)
