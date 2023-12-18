@@ -76,9 +76,9 @@ $
 ### Built-in Commands
 The shell supports the following built-in commands:
 
-```exit```: Exit the shell
-```env```: Print the current environment
-```pwd```: Show the path of the current working directory
+* ```exit```: Exit the shell
+* ```env```: Print the current environment
+* ```pwd```: Show the path of the current working directory
 
 ### External Commands
 The shell is capable of executing external commands by searching for the corresponding executable files in the directories listed in the ```PATH``` environment variable. It uses the ```execve``` system call to launch external programs.
