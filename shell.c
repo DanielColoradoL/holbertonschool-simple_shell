@@ -9,6 +9,7 @@ int main(void)
 {
 	pid_t child_pid;
 	char **argv, *buffer;
+	int status;
 
 	while (1)
 	{
@@ -26,20 +27,27 @@ int main(void)
 				_print_env();
 			else if (strcmp(argv[0], "./ppid") == 0)
 				printf("%d\n", getppid());
+			else if (strcmp(argv[0], "exit") == 0)
+				exit (42);
 			else
 			{
 				if (execve(argv[0], argv, NULL) == -1)
 				{
 					perror("Error executing command:");
-					return (1);
+					exit (1);
 				}
 			}
 			return (0);
 		}
 		else
-			wait(NULL);
-			if (!isatty(STDIN_FILENO))
-				break;
+		{
+            waitpid(child_pid, &status, 0);
+            if (WIFEXITED(status))
+            {
+                if (!isatty(STDIN_FILENO) || WEXITSTATUS(status) == 42)
+                    break; // Break out of the loop in the parent process
+            }
+		}
 	}
 	return (0);
 }
