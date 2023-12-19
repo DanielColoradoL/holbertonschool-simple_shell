@@ -10,6 +10,7 @@
 
 char *_getline(void);
 char **_argv_array(char *string);
+void _print_env(void);
 
 #endif
 

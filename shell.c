@@ -18,18 +18,19 @@ int main(void)
 			buffer = _getline();
 			if (buffer == NULL)
 			{
+				fprintf(stderr, "Error reading input\n");
 				return (1);
 			}
 			argv = _argv_array(buffer);
-			if (strcmp(argv[0], "./ppid") == 0)
-			{
+			if (strcmp(argv[0], "env") == 0)
+				_print_env();
+			else if (strcmp(argv[0], "./ppid") == 0)
 				printf("%d\n", getppid());
-			}
 			else
 			{
 				if (execve(argv[0], argv, NULL) == -1)
 				{
-					perror("Error:");
+					perror("Error executing command:");
 					return (1);
 				}
 			}
