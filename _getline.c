@@ -19,7 +19,7 @@ char *_getline(void)
 	printf("$ ");
 	chars = getline(&buffer, &size, stdin);
 
-	/* If chars == -1 it means error from getline */
+	/* If chars == -1 it means getline encounters an error or EOF*/
 	if (chars == -1)
 	{
 		free(buffer);
@@ -28,8 +28,10 @@ char *_getline(void)
 
 	output = malloc(sizeof(char) * chars);
 	if (output == NULL)
+	{
+		free(buffer);
 		return (NULL);
-
+	}
 	for (i = 0; i < chars; i++)
 	{
 		if (i == chars - 1)
