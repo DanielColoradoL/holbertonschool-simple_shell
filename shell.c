@@ -14,25 +14,31 @@ int main(void)
 	{
 		child_pid = fork();
 		if (child_pid == 0)
-			break;
-		wait(NULL);
-	}
-	if (child_pid == 0)
-	{
-		buffer = _getline();
-		argv = _argv_array(buffer);
-		if (strcmp(argv[0], "./ppid") == 0)
 		{
-			printf("%d\n", getppid());
-		}
-		else
-		{
-			if (execve(argv[0], argv, NULL) == -1)
+			buffer = _getline();
+			if (buffer == NULL)
 			{
-				perror("Error:");
 				return (1);
 			}
+			argv = _argv_array(buffer);
+			if (strcmp(argv[0], "./ppid") == 0)
+			{
+				printf("%d\n", getppid());
+			}
+			else
+			{
+				if (execve(argv[0], argv, NULL) == -1)
+				{
+					perror("Error:");
+					return (1);
+				}
+			}
+			return (0);
 		}
+		else
+			wait(NULL);
+			if (!isatty(STDIN_FILENO))
+				break;
 	}
 	return (0);
 }
