@@ -45,7 +45,7 @@ int main(void)
             if (WIFEXITED(status))
             {
                 if (!isatty(STDIN_FILENO) || WEXITSTATUS(status) == 42)
-                    break; // Break out of the loop in the parent process
+                    break;
             }
 		}
 	}
