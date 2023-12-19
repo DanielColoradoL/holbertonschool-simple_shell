@@ -15,17 +15,15 @@ char *_getline(void)
 	buffer = malloc(sizeof(char) * size);
 	if (buffer == NULL)
 		return (NULL);
-
-	printf("$ ");
+	if (isatty(STDIN_FILENO))
+		printf("$ ");
 	chars = getline(&buffer, &size, stdin);
-
 	/* If chars == -1 it means getline encounters an error or EOF*/
 	if (chars == -1)
 	{
 		free(buffer);
 		return (NULL);
 	}
-
 	output = malloc(sizeof(char) * chars);
 	if (output == NULL)
 	{
@@ -39,7 +37,6 @@ char *_getline(void)
 		else
 			output[i] = buffer[i];
 	}
-
 	free(buffer);
 	return (output);
 }
