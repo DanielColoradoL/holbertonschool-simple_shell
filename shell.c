@@ -5,7 +5,7 @@ void free_argv_array(char **argv);
 /**
  * main - entry point
  *
- * Return: 0 if successful or 1 if not
+ * Return: 0 if successful or non-zero if not
  */
 int main(void)
 {
@@ -28,7 +28,7 @@ int main(void)
 			{
 				free(buffer);
 				free_argv_array(argv);
-				exit (0);
+				exit (2);
 			}
 			token = strtok(NULL, "\n");
 			child_pid = fork();
