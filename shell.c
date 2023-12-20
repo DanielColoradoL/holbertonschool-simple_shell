@@ -28,7 +28,7 @@ int main(void)
 			{
 				free(buffer);
 				free_argv_array(argv);
-				exit (42);
+				exit (0);
 			}
 			token = strtok(NULL, "\n");
 			child_pid = fork();
@@ -44,7 +44,7 @@ int main(void)
 				waitpid(child_pid, &status, 0);
 				if (WIFEXITED(status))
 				{
-					if (!isatty(STDIN_FILENO) || WEXITSTATUS(status) == 42)
+					if (!isatty(STDIN_FILENO) || WEXITSTATUS(status) == 0)
 						break;
 				}
 			}
