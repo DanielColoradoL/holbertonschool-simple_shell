@@ -50,6 +50,7 @@ int main(void)
 			}
 		}
 		free(buffer);
+		free_argv_array(argv);
 	}
 	free_argv_array(argv);
 	return (0);
