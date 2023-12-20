@@ -8,26 +8,21 @@
  */
 char *_getline(void)
 {
-	char *buffer, *output;
-	size_t size = 80;
+	char *buffer = NULL, *output = NULL;
+	size_t size = 0;
 	int chars, i;
 
-	buffer = malloc(sizeof(char) * size);
-	if (buffer == NULL)
-		return (NULL);
 	if (isatty(STDIN_FILENO))
 		printf("$ ");
 	chars = getline(&buffer, &size, stdin);
 	/* If chars == -1 it means getline encounters an error or EOF*/
 	if (chars == -1)
 	{
-		free(buffer);
-		return (NULL);
+		exit(EXIT_SUCCESS);
 	}
 	output = malloc(sizeof(char) * chars);
 	if (output == NULL)
 	{
-		free(buffer);
 		return (NULL);
 	}
 	for (i = 0; i < chars; i++)
@@ -37,6 +32,5 @@ char *_getline(void)
 		else
 			output[i] = buffer[i];
 	}
-	free(buffer);
 	return (output);
 }
