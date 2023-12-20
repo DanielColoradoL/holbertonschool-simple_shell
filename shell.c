@@ -63,7 +63,6 @@ int main(void)
 		free(buffer);
 		free_argv_array(argv);
 	}
-	free_argv_array(argv);
 	return (0);
 }
 
@@ -83,8 +82,7 @@ char *search_path(const char *command)
 	char *full_path;
     char *path_env = getenv("PATH");
 	/* Duplicate the PATH string to avoid modifying the original */
-    char *path_copy = strdup(path_env);
-    char *dir = strtok(path_copy, ":");
+    char *dir = strtok(path_env, ":");
     
     while (dir != NULL) {
         /* Build full path by concatenating the directory and the command */
@@ -100,7 +98,6 @@ char *search_path(const char *command)
         /* Check if the file at the constructed path exists and is executable */
         if (access(full_path, X_OK) == 0)
 		{
-            free(path_copy);
             return (full_path);
         }
 
@@ -108,6 +105,5 @@ char *search_path(const char *command)
         dir = strtok(NULL, ":");
     }
 
-    free(path_copy);
     return (NULL);
 }
