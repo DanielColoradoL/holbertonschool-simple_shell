@@ -1,6 +1,7 @@
 #include "main.h"
 
 void free_argv_array(char **argv);
+char *search_path(const char *command);
 
 /**
  * main - entry point
@@ -10,7 +11,7 @@ void free_argv_array(char **argv);
 int main(void)
 {
 	pid_t child_pid;
-	char **argv, *buffer, *token;
+	char **argv, *buffer, *token, *path;
 	int status;
 
 	while (1)
@@ -20,16 +21,26 @@ int main(void)
         while (token != NULL)
         {
 			argv = _argv_array(token);
-			if (strcmp(argv[0], "env") == 0)
-				_print_env();
-			else if (strcmp(argv[0], "./ppid") == 0)
-				printf("%d\n", getppid());
-			else if (strcmp(argv[0], "exit") == 0)
-			{
-				free(buffer);
-				free_argv_array(argv);
-				exit (2);
-			}
+            if (strchr(argv[0], '/') == NULL) {
+				if (strcmp(argv[0], "env") == 0)
+					_print_env();
+				else if (strcmp(argv[0], "exit") == 0)
+				{
+					free(buffer);
+					free_argv_array(argv);
+					exit (2);
+				}
+                path = search_path(argv[0]);
+                if (path != NULL) {
+                    free(argv[0]); /* Free the original command */
+                    argv[0] = path; /* Update the command with the full path */
+                } else {
+                    fprintf(stderr, "Command not found: %s\n", token);
+                    free(buffer);
+                    free_argv_array(argv);
+                    continue; /* Skip to the next iteration of the loop */
+                }
+            }
 			token = strtok(NULL, "\n");
 			child_pid = fork();
 			if (child_pid == 0)
@@ -65,4 +76,38 @@ void free_argv_array(char **argv)
         i++;
     }
     free(argv);
+}
+
+char *search_path(const char *command) 
+{
+	char *full_path;
+    char *path_env = getenv("PATH");
+	/* Duplicate the PATH string to avoid modifying the original */
+    char *path_copy = strdup(path_env);
+    char *dir = strtok(path_copy, ":");
+    
+    while (dir != NULL) {
+        /* Build full path by concatenating the directory and the command */
+		/* +2 for '/' and '\0' */
+        full_path = malloc(strlen(dir) + strlen(command) + 2);
+        if (full_path == NULL)
+		{
+            perror("Memory allocation error");
+            exit(EXIT_FAILURE);
+        }
+        sprintf(full_path, "%s/%s", dir, command);
+
+        /* Check if the file at the constructed path exists and is executable */
+        if (access(full_path, X_OK) == 0)
+		{
+            free(path_copy);
+            return (full_path);
+        }
+
+        free(full_path);
+        dir = strtok(NULL, ":");
+    }
+
+    free(path_copy);
+    return (NULL);
 }
