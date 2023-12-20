@@ -8,46 +8,45 @@
 int main(void)
 {
 	pid_t child_pid;
-	char **argv, *buffer;
+	char **argv, *buffer, *token;
 	int status;
 
 	while (1)
 	{
-		child_pid = fork();
-		if (child_pid == 0)
-		{
-			buffer = _getline();
-			if (buffer == NULL)
-			{
-				fprintf(stderr, "Error reading input\n");
-				return (1);
-			}
-			argv = _argv_array(buffer);
+		buffer = _getline();
+		token = strtok(buffer, "\n");
+        while (token != NULL)
+        {
+			argv = _argv_array(token);
 			if (strcmp(argv[0], "env") == 0)
 				_print_env();
 			else if (strcmp(argv[0], "./ppid") == 0)
 				printf("%d\n", getppid());
 			else if (strcmp(argv[0], "exit") == 0)
-				exit (42);
-			else
 			{
-				if (execve(argv[0], argv, NULL) == -1)
+				exit (42);
+			}
+			token = strtok(NULL, "\n");
+			child_pid = fork();
+			if (child_pid == 0)
+			{
+					if (execve(argv[0], argv, NULL) == -1)
+					{
+						exit (1);
+					}
+			}
+			if (child_pid != 0)
+			{
+				waitpid(child_pid, &status, 0);
+				if (WIFEXITED(status))
 				{
-					perror("Error executing command:");
-					exit (1);
+					if (!isatty(STDIN_FILENO) || WEXITSTATUS(status) == 42)
+						break;
 				}
 			}
-			return (0);
-		}
-		else
-		{
-            waitpid(child_pid, &status, 0);
-            if (WIFEXITED(status))
-            {
-                if (!isatty(STDIN_FILENO) || WEXITSTATUS(status) == 42)
-                    break;
-            }
 		}
 	}
+	free(buffer);
+	free(argv);
 	return (0);
 }
