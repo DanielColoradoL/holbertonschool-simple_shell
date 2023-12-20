@@ -18,11 +18,13 @@ char *_getline(void)
 	/* If chars == -1 it means getline encounters an error or EOF*/
 	if (chars == -1)
 	{
+		free(buffer);
 		exit(EXIT_SUCCESS);
 	}
 	output = malloc(sizeof(char) * chars);
 	if (output == NULL)
 	{
+		free(buffer);
 		return (NULL);
 	}
 	for (i = 0; i < chars; i++)
@@ -32,5 +34,6 @@ char *_getline(void)
 		else
 			output[i] = buffer[i];
 	}
+	free(buffer);
 	return (output);
 }

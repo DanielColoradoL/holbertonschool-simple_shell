@@ -1,5 +1,7 @@
 #include "main.h"
 
+void free_argv_array(char **argv);
+
 /**
  * main - entry point
  *
@@ -24,6 +26,8 @@ int main(void)
 				printf("%d\n", getppid());
 			else if (strcmp(argv[0], "exit") == 0)
 			{
+				free(buffer);
+				free_argv_array(argv);
 				exit (42);
 			}
 			token = strtok(NULL, "\n");
@@ -45,8 +49,19 @@ int main(void)
 				}
 			}
 		}
+		free(buffer);
 	}
-	free(buffer);
-	free(argv);
+	free_argv_array(argv);
 	return (0);
+}
+
+void free_argv_array(char **argv)
+{
+    int i = 0;
+    while (argv[i] != NULL)
+    {
+        free(argv[i]);
+        i++;
+    }
+    free(argv);
 }

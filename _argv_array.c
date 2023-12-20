@@ -18,27 +18,32 @@ char **_argv_array(char *inp_str)
 	strcpy(string, inp_str);
 	strcpy(string_cp, string);
 	sub_string = strtok(string, s);
-
 	/* Let us know how many substrings are there */
 	while (sub_string != NULL)
 	{
 		i++;
 		sub_string = strtok(NULL, s);
 	}
-
 	array = malloc(sizeof(char *) * (i + 1));
 	if (array == NULL)
 		return (NULL);
-
 	sub_string = strtok(string_cp, s);
-
 	while (sub_string != NULL)
 	{
 		array[j] = strdup(sub_string);
+		if (array[j] == NULL)
+		{
+			while (j > 0)
+			{
+				j--;
+				free(array[j]);
+			}
+			free(array);
+			return NULL;
+		}
 		j++;
 		sub_string = strtok(NULL, s);
 	}
 	array[j] = NULL;
-
 	return (array);
 }
