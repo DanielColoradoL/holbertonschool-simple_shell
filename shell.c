@@ -28,7 +28,6 @@ int main(void)
 				{
 					free(buffer);
 					free_argv_array(argv);
-					free(path);
 					exit (2);
 				}
                 path = search_path(argv[0]);
@@ -43,8 +42,8 @@ int main(void)
                     free_argv_array(argv);
                     continue; /* Skip to the next iteration of the loop */
                 }
+				token = strtok(NULL, "\n");
             }
-			token = strtok(NULL, "\n");
 			child_pid = fork();
 			if (child_pid == 0)
 			{
