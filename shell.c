@@ -28,13 +28,12 @@ int main(void)
 				{
 					free(buffer);
 					free_argv_array(argv);
-					exit (2);
+					exit (0);
 				}
                 path = search_path(argv[0]);
                 if (path != NULL) {
                     free(argv[0]); /* Free the original command */
-                    argv[0] = strdup(path); /* Update the command with the full path */
-					free(path);
+                    argv[0] = path; /* Update the command with the full path */
                 } 
 				else {
                     fprintf(stderr, "Command not found: %s\n", token);
