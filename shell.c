@@ -20,13 +20,16 @@ int main(void)
 		token = strtok(buffer, "\n");
         while (token != NULL)
         {
-			if (strchr(argv[0], '\n') != NULL || strchr(argv[0], ' ') != NULL)
+			argv = _argv_array(token);
+
+			if (argv[0] == NULL || strchr(argv[0], ' ') != NULL)
 			{
 				free(buffer);
 				break;
 			}
-			argv = _argv_array(token);
-            if (strchr(argv[0], '/') == NULL) {
+			
+            if (strchr(argv[0], '/') == NULL) 
+			{
 				if (strcmp(argv[0], "env") == 0)
 				{
 					_print_env();
