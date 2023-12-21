@@ -9,41 +9,25 @@
  */
 char **_argv_array(char *inp_str)
 {
-	char string[80], string_cp[80];
+	char string[2046];
 	char *sub_string;
 	const char *s = " \t\n\r";
-	int i = 0, j = 0;
+	int i = 0;
 	char **array;
 
+
 	strcpy(string, inp_str);
-	strcpy(string_cp, string);
 	sub_string = strtok(string, s);
+	array = malloc(sizeof(char *) * i);
+	if (array == NULL)
+		return (NULL);
 	/* Let us know how many substrings are there */
 	while (sub_string != NULL)
 	{
-		i++;
-		sub_string = strtok(NULL, s);
+        array[i] = strdup(sub_string);
+		printf("%s\n", array[i]);
+        i++;
+        sub_string = strtok(NULL, s);
 	}
-	array = malloc(sizeof(char *) * (i + 1));
-	if (array == NULL)
-		return (NULL);
-	sub_string = strtok(string_cp, s);
-	while (sub_string != NULL)
-	{
-		array[j] = strdup(sub_string);
-		if (array[j] == NULL)
-		{
-			while (j > 0)
-			{
-				j--;
-				free(array[j]);
-			}
-			free(array);
-			return NULL;
-		}
-		j++;
-		sub_string = strtok(NULL, s);
-	}
-	array[j] = NULL;
 	return (array);
 }
