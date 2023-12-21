@@ -17,11 +17,14 @@ int main(void)
 	while (1)
 	{
 		buffer = _getline();
-		token = strtok(buffer, "\n");
+		token = strtok(buffer, " \t\n\r");
         while (token != NULL)
         {
-			if (strcmp(buffer, "                ") == 0)
+			if (strchr(argv[0], '\n') == NULL || strchr(argv[0], ' ') == NULL)
+			{
+				free(buffer);
 				break;
+			}
 			argv = _argv_array(token);
             if (strchr(argv[0], '/') == NULL) {
 				if (strcmp(argv[0], "env") == 0)
@@ -46,7 +49,7 @@ int main(void)
                     free_argv_array(argv);
                     break; /* Skip to the next iteration of the loop */
                 }
-				token = strtok(NULL, "\n");
+				token = strtok(NULL, " \t\n\r");
             }
 			child_pid = fork();
 			if (child_pid == 0)

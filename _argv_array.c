@@ -11,7 +11,7 @@ char **_argv_array(char *inp_str)
 {
 	char string[80], string_cp[80];
 	char *sub_string;
-	const char *s = " ";
+	const char *s = " \t\n\r";
 	int i = 0, j = 0;
 	char **array;
 
