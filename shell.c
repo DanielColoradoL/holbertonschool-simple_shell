@@ -35,12 +35,12 @@ int main(void)
                 if (path != NULL) {
                     free(argv[0]); /* Free the original command */
                     argv[0] = strdup(path); /* Update the command with the full path */
+					free(path);
                 } 
 				else {
                     fprintf(stderr, "Command not found: %s\n", token);
                     free(buffer);
                     free_argv_array(argv);
-					free(path);
                     continue; /* Skip to the next iteration of the loop */
                 }
             }
@@ -52,7 +52,6 @@ int main(void)
 					{
 						free(buffer);
                 		free_argv_array(argv);
-						free(path);
 						exit (1);
 					}
 			}
@@ -62,13 +61,14 @@ int main(void)
 				if (WIFEXITED(status))
 				{
 					if (!isatty(STDIN_FILENO) || WEXITSTATUS(status) == 0)
+					{
+						free(buffer);
+						free_argv_array(argv);
 						break;
+					}
 				}
 			}
 		}
-		free(path);
-		free(buffer);
-		free_argv_array(argv);
 	}
 	return (0);
 }
