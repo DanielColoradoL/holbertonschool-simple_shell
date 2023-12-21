@@ -25,7 +25,6 @@ char **_argv_array(char *inp_str)
 	while (sub_string != NULL)
 	{
         array[i] = strdup(sub_string);
-		printf("%s\n", array[i]);
         i++;
         sub_string = strtok(NULL, s);
 	}
