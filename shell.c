@@ -17,7 +17,7 @@ int main(void)
 	while (1)
 	{
 		buffer = _getline();
-		token = strtok(buffer, " \t\n\r");
+		token = strtok(buffer, "\n");
         while (token != NULL)
         {
 			if (strchr(argv[0], '\n') != NULL || strchr(argv[0], ' ') != NULL)
@@ -49,7 +49,7 @@ int main(void)
                     free_argv_array(argv);
                     break; /* Skip to the next iteration of the loop */
                 }
-				token = strtok(NULL, " \t\n\r");
+				token = strtok(NULL, "\n");
             }
 			child_pid = fork();
 			if (child_pid == 0)
