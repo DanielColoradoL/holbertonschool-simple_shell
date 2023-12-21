@@ -20,6 +20,8 @@ int main(void)
 		token = strtok(buffer, "\n");
         while (token != NULL)
         {
+			if (strcmp(buffer, "                ") == 0)
+				break;
 			argv = _argv_array(token);
             if (strchr(argv[0], '/') == NULL) {
 				if (strcmp(argv[0], "env") == 0)
