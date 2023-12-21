@@ -20,7 +20,7 @@ int main(void)
 		token = strtok(buffer, " \t\n\r");
         while (token != NULL)
         {
-			if (strchr(argv[0], '\n') == NULL || strchr(argv[0], ' ') == NULL)
+			if (strchr(argv[0], '\n') != NULL || strchr(argv[0], ' ') != NULL)
 			{
 				free(buffer);
 				break;
