@@ -29,11 +29,9 @@ char *_getline(void)
 	}
 	for (i = 0; i < chars; i++)
 	{
-		if (i == chars - 1)
-			output[i] = 0;
-		else
-			output[i] = buffer[i];
+		output[i] = buffer[i];
 	}
+	output[chars - 1] = '\0';
 	free(buffer);
 	return (output);
 }
