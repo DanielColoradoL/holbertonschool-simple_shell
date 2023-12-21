@@ -82,7 +82,6 @@ void free_argv_array(char **argv)
         free(argv[i]);
         i++;
     }
-	free(argv[i]);
     free(argv);
 }
 
