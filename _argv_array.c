@@ -39,7 +39,7 @@ char **_argv_array(char *inp_str)
 				free(array[j]);
 			}
 			free(array);
-			return NULL;
+			return (NULL);
 		}
 		j++;
 		sub_string = strtok(NULL, s);
