@@ -34,7 +34,8 @@ int main(void)
                 if (path != NULL) {
                     free(argv[0]); /* Free the original command */
                     argv[0] = path; /* Update the command with the full path */
-                } else {
+                } 
+				else {
                     fprintf(stderr, "Command not found: %s\n", token);
                     free(buffer);
                     free_argv_array(argv);
@@ -82,7 +83,8 @@ char *search_path(const char *command)
 	char *full_path;
     char *path_env = getenv("PATH");
 	/* Duplicate the PATH string to avoid modifying the original */
-    char *dir = strtok(path_env, ":");
+	char *path_copy = strdup(path_env);
+    char *dir = strtok(path_copy, ":");
     
     while (dir != NULL) {
         /* Build full path by concatenating the directory and the command */
@@ -94,16 +96,16 @@ char *search_path(const char *command)
             exit(EXIT_FAILURE);
         }
         sprintf(full_path, "%s/%s", dir, command);
-
         /* Check if the file at the constructed path exists and is executable */
         if (access(full_path, X_OK) == 0)
 		{
+			free(path_copy);
             return (full_path);
         }
 
         free(full_path);
         dir = strtok(NULL, ":");
     }
-
+	free(path_copy);
     return (NULL);
 }
