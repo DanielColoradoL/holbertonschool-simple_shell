@@ -23,7 +23,10 @@ int main(void)
 			argv = _argv_array(token);
             if (strchr(argv[0], '/') == NULL) {
 				if (strcmp(argv[0], "env") == 0)
+				{
 					_print_env();
+					break;
+				}
 				else if (strcmp(argv[0], "exit") == 0)
 				{
 					free(buffer);
