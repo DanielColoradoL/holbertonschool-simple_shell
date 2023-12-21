@@ -40,7 +40,7 @@ int main(void)
                     fprintf(stderr, "Command not found: %s\n", token);
                     free(buffer);
                     free_argv_array(argv);
-                    continue; /* Skip to the next iteration of the loop */
+                    break; /* Skip to the next iteration of the loop */
                 }
 				token = strtok(NULL, "\n");
             }
