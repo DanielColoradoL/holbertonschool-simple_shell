@@ -1,7 +1,9 @@
 # Simple Shell Project
 by Team Daniel and Nick (Cohort 22) Holberton School Australia, Melbourne
 
-This is a simple Unix shell implementation developed as part of the curriculum at Holberton School. The shell supports both interactive and non-interactive modes, basic command execution, including built-in commands and external commands.
+This is a simple Unix shell implementation developed as part of the curriculum at Holberton School. The shell supports both interactive and non-interactive modes, basic command execution, including built-in commands and external commands. 
+
+This is created with C (programming language) and vim (code editor).
 
 **Features**
 * Interactive command execution
@@ -13,9 +15,8 @@ This is a simple Unix shell implementation developed as part of the curriculum a
 * Signal handling (Ctrl+C)
 * Custom prompt display
 
-This is created with C (programming language) and vim (code editor).
-
 ## Table of Contents
+* [Requirements] (#requirements)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Flowchart](#flowchart)
@@ -23,6 +24,12 @@ This is created with C (programming language) and vim (code editor).
 * [Author](#author)
 * [Copyright](#copyright)
 
+## Requirements
+* Ubuntu 20.04 LTS
+    * [Windows 10 or 11](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview)
+    * [Mac](https://ubuntu.com/download/desktop)
+* Follows the [Betty](https://github.com/alx-tools/Betty/wiki) linter [style](https://github.com/hs-hq/Betty/blob/main/betty-style.pl) and [documentation](https://github.com/hs-hq/Betty/blob/main/betty-doc.pl)
+* No more than 5 functions per file
 
 ## Installation
 To run this project, install it locally by cloning our repository using the command ```git clone``` as shown below:
@@ -85,14 +92,14 @@ The shell is capable of executing external commands by searching for the corresp
 
 
 ## Flowchart
-Below is a flowchart showing the basic implementation of how our function works and the steps the function goes through to return the desired result.
+Below is a flowchart showing the basic implementation of how our hsh shell works.
 
-![_printf flowchart](https://github.com/haoningng/holbertonschool-printf/blob/master/_printf%20flowchart.jpg)
+![Simple Shell flowchart](https://github.com/DanielColoradoL/holbertonschool-simple_shell/blob/main/simple_shell.jpg)
 
 ## Documentation
 
 ### MANUAL
-To see the manual page for this function, type the following line into the command line:
+To see the manual page for this hsh shell, type the following line into the command line:
 
 ```
 man ./man_1_simple_shell
