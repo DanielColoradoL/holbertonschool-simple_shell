@@ -28,6 +28,7 @@ This is created with C (programming language) and vim (code editor).
 * Ubuntu 20.04 LTS
     * [Windows 10 or 11](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-11-with-gui-support#1-overview)
     * [Mac](https://ubuntu.com/download/desktop)
+* [GCC](https://gcc.gnu.org/install/index.html) compiler
 * Follows the [Betty](https://github.com/alx-tools/Betty/wiki) linter [style](https://github.com/hs-hq/Betty/blob/main/betty-style.pl) and [documentation](https://github.com/hs-hq/Betty/blob/main/betty-doc.pl)
 * No more than 5 functions per file
 
