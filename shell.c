@@ -54,7 +54,7 @@ int main(void)
 					fprintf(stderr, "./hsh: 1: %s: not found\n", token);
 					free(buffer);
 					free_argv_array(argv);
-					break; /* Skip to the next iteration of the loop */
+					break;
 				}
 				token = strtok(NULL, "\n");
 			}
