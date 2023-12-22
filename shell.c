@@ -25,6 +25,7 @@ int main(void)
 			if (argv[0] == NULL || strchr(argv[0], ' ') != NULL)
 			{
 				free(buffer);
+				free_argv_array(argv);
 				break;
 			}
 			if (strchr(argv[0], '/') == NULL)
@@ -32,6 +33,8 @@ int main(void)
 				if (strcmp(argv[0], "env") == 0)
 				{
 					_print_env();
+					free(buffer);
+					free_argv_array(argv);
 					break;
 				}
 				else if (strcmp(argv[0], "exit") == 0)
