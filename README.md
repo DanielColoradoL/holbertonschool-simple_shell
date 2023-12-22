@@ -16,7 +16,7 @@ This is created with C (programming language) and vim (code editor).
 * Custom prompt display
 
 ## Table of Contents
-* [Requirements] (#requirements)
+* [Requirements](#requirements)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Flowchart](#flowchart)
