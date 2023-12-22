@@ -9,7 +9,7 @@
  */
 char **_argv_array(char *inp_str)
 {
-	char string[80], string_cp[80];
+	char string[1024], string_cp[1024];
 	char *sub_string;
 	const char *s = " \t\n\r";
 	int i = 0, j = 0;
