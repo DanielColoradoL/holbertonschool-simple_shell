@@ -29,7 +29,6 @@ int main(void)
 			{
 				free(buffer);
 				free_argv_array(argv);
-				free(path_start);
 				break;
 			}
 			if (strchr(argv[0], '/') == NULL)
@@ -48,9 +47,8 @@ int main(void)
 					free(path_start);
 					exit(0);
 				}
-				path = search_path(argv[0], path_start);
 				strcpy(path_start, getenv("PATH"));
-
+				path = search_path(argv[0], path_start);
 				if (path != NULL)
 				{
 					free(argv[0]);
@@ -85,13 +83,13 @@ int main(void)
 					{
 						free(buffer);
 						free_argv_array(argv);
-						free(path_start);
 						break;
 					}
 				}
 			}
 		}
 	}
+	free(path_start);
 	return (0);
 }
 
