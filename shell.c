@@ -85,6 +85,7 @@ int main(void)
 					{
 						free(buffer);
 						free_argv_array(argv);
+						free(path_start);
 						break;
 					}
 				}
