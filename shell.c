@@ -1,7 +1,8 @@
 #include "main.h"
 
 void free_argv_array(char **argv);
-char *search_path(const char *command);
+char *search_path(const char *command, char *path_env);
+
 
 /**
  * main - entry point
@@ -13,6 +14,8 @@ int main(void)
 	pid_t child_pid;
 	char **argv, *buffer, *token, *path;
 	int status;
+	char *path_start = strdup(getenv("PATH"));
+
 
 	while (1)
 	{
@@ -26,6 +29,7 @@ int main(void)
 			{
 				free(buffer);
 				free_argv_array(argv);
+				free(path_start);
 				break;
 			}
 			if (strchr(argv[0], '/') == NULL)
@@ -41,9 +45,12 @@ int main(void)
 				{
 					free(buffer);
 					free_argv_array(argv);
+					free(path_start);
 					exit(0);
 				}
-				path = search_path(argv[0]);
+				path = search_path(argv[0], path_start);
+				strcpy(path_start, getenv("PATH"));
+
 				if (path != NULL)
 				{
 					free(argv[0]);
@@ -65,6 +72,7 @@ int main(void)
 				{
 					free(buffer);
 					free_argv_array(argv);
+					free(path_start);
 					exit(1);
 				}
 			}
@@ -110,12 +118,12 @@ void free_argv_array(char **argv)
  *
  * Return: new string containing full path
  */
-char *search_path(const char *command)
+char *search_path(const char *command, char *path_env)
 {
 	char *full_path;
-	char *path_env = getenv("PATH");
-	/* Duplicate the PATH string to avoid modifying the original */
-	char *dir = strtok(strdup(path_env), ":");
+	char *dir;
+
+	dir = strtok(path_env, ":");
 
 	while (dir != NULL)
 	{
@@ -128,6 +136,7 @@ char *search_path(const char *command)
 			exit(EXIT_FAILURE);
 		}
 		sprintf(full_path, "%s/%s", dir, command);
+		
 		/* Check if the file at the constructed path exists and is executable */
 		if (access(full_path, X_OK) == 0)
 		{
