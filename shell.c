@@ -115,7 +115,7 @@ void free_argv_array(char **argv)
 /**
  * search_path - get the path for the command
  * @command: command input
- * @path_env: path to process 
+ * @path_env: path to process
  * Return: new string containing full path
  */
 char *search_path(const char *command, char *path_env)
@@ -136,7 +136,6 @@ char *search_path(const char *command, char *path_env)
 			exit(EXIT_FAILURE);
 		}
 		sprintf(full_path, "%s/%s", dir, command);
-		
 		/* Check if the file at the constructed path exists and is executable */
 		if (access(full_path, X_OK) == 0)
 		{
