@@ -115,7 +115,7 @@ void free_argv_array(char **argv)
 /**
  * search_path - get the path for the command
  * @command: command input
- *
+ * @path_env: path to process 
  * Return: new string containing full path
  */
 char *search_path(const char *command, char *path_env)
