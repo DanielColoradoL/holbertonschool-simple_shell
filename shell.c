@@ -1,8 +1,7 @@
 #include "main.h"
 
 void free_argv_array(char **argv);
-char *search_path(const char *command, char *path_env);
-
+char *search_path(const char *command);
 
 /**
  * main - entry point
@@ -14,8 +13,6 @@ int main(void)
 	pid_t child_pid;
 	char **argv, *buffer, *token, *path;
 	int status;
-	char *path_start = strdup(getenv("PATH"));
-
 
 	while (1)
 	{
@@ -44,11 +41,9 @@ int main(void)
 				{
 					free(buffer);
 					free_argv_array(argv);
-					free(path_start);
 					exit(0);
 				}
-				strcpy(path_start, getenv("PATH"));
-				path = search_path(argv[0], path_start);
+				path = search_path(argv[0]);
 				if (path != NULL)
 				{
 					free(argv[0]);
@@ -70,7 +65,6 @@ int main(void)
 				{
 					free(buffer);
 					free_argv_array(argv);
-					free(path_start);
 					exit(1);
 				}
 			}
@@ -89,7 +83,6 @@ int main(void)
 			}
 		}
 	}
-	free(path_start);
 	return (0);
 }
 
@@ -114,15 +107,15 @@ void free_argv_array(char **argv)
 /**
  * search_path - get the path for the command
  * @command: command input
- * @path_env: path to process
+ *
  * Return: new string containing full path
  */
-char *search_path(const char *command, char *path_env)
+char *search_path(const char *command)
 {
 	char *full_path;
-	char *dir;
-
-	dir = strtok(path_env, ":");
+	char *path_env = getenv("PATH");
+	/* Duplicate the PATH string to avoid modifying the original */
+	char *dir = strtok(strdup(path_env), ":");
 
 	while (dir != NULL)
 	{
